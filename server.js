@@ -30,6 +30,21 @@ app.use(cors({
     origin: '*', // Or specify the exact origin of your extension if you want to be more restrictive (see below)
 }));
 
+const allowedOrigins = [
+    'chrome-extension://oenilhaakofldeifhgajinkdackmnhbl', // Replace with your actual extension ID
+    // ... any other allowed origins
+  ];
+  
+  app.use(cors({
+    origin: function (origin, callback) {
+      if (!origin || allowedOrigins.includes(origin)) { // Allow requests with no origin (e.g., from Postman) or from allowed origins
+        callback(null, true);
+      } else {
+        callback(new Error('Not allowed by CORS'));
+      }
+    }
+  }));
+
 app.use(express.json());
 
 // Seeder Function
