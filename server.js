@@ -26,6 +26,10 @@ const videoSchema = new mongoose.Schema({
 
 const Video = mongoose.model('autoyt', videoSchema);
 
+app.use(cors({
+    origin: '*', // Or specify the exact origin of your extension if you want to be more restrictive (see below)
+}));
+
 app.use(express.json());
 
 // Seeder Function
